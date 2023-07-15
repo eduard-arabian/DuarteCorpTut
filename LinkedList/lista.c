@@ -11,18 +11,17 @@ Lista *lista_new(void) {
 
 void lista_add(Lista *L, float val) {
   if (L->inicio) {
-    Nodo *N = NULL;
-    N = L->inicio;
-    while (N->next) {
-      N = N->next;
-    }
-    N->next = (Nodo *)malloc(sizeof(Nodo));
-    N->next->val = val;
-    N->next->next = NULL;
+      Nodo *N = L->inicio;
+      while (N->next) {
+          N = N->next;
+      }
+      N->next = (Nodo *) malloc(sizeof(Nodo));
+      N->next->val = val;
+      N->next->next = NULL;
   } else {
-    L->inicio = (Nodo *)malloc(sizeof(Nodo));
-    L->inicio->val = val;
-    L->inicio->next = NULL;
+      L->inicio = (Nodo *) malloc(sizeof(Nodo));
+      L->inicio->val = val;
+      L->inicio->next = NULL;
   }
 }
 
