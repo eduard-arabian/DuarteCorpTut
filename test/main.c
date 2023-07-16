@@ -18,16 +18,25 @@ int main() {
   D->size = 0;
   D->pairs = NULL;
   D->size = 1;
-
   D->pairs = malloc(sizeof(Pair) * D->size);
   char *key = "FreeBSD";
-  D->pairs[0].key = malloc(sizeof(char) * strlen(key) + 1);
+  D->pairs[D->size - 1].key = malloc(sizeof(char) * strlen(key) + 1);
   strcpy(D->pairs[D->size - 1].key, key);
   char *value = "Derived from Unix";
-  D->pairs[0].value = malloc(sizeof(char) * strlen(value) + 1);
+  D->pairs[D->size - 1].value = malloc(sizeof(char) * strlen(value) + 1);
   strcpy(D->pairs[D->size - 1].value, value);
 
+  ++D->size;
+  D->pairs = realloc(D->pairs, sizeof(Pair) * D->size);
+  char *key2 = "Windows";
+  D->pairs[D->size - 1].key = malloc(sizeof(char) * strlen(key2) + 1);
+  strcpy(D->pairs[D->size - 1].key, key2);
+  char *value2 = "Derived from MSDOS";
+  D->pairs[D->size - 1].value = malloc(sizeof(char) * strlen(value2) + 1);
+  strcpy(D->pairs[D->size - 1].value, value2);
+
   printf("%s: %s\n", D->pairs[0].key, D->pairs[0].value);
+  printf("%s: %s\n", D->pairs[1].key, D->pairs[1].value);
   free(D->pairs[0].key);
   D->pairs[0].key = NULL;
   free(D->pairs[0].value);
