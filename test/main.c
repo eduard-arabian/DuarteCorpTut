@@ -12,38 +12,62 @@ typedef struct {
   int size;
 } Dict;
 
-int main() {
+Dict *dict_new(void)
+{
   Dict *D = NULL;
   D = malloc(sizeof(Dict));
   D->size = 0;
   D->pairs = NULL;
-  D->size = 1;
-  D->pairs = malloc(sizeof(Pair) * D->size);
-  char *key = "FreeBSD";
+  return D;
+}
+
+void dict_increase(Dict *D, int size)
+{
+  if (D) {
+      D->size += size;
+      D->pairs = realloc(D->pairs, sizeof(Pair) * D->size);
+  }
+}
+
+void dict_add(Dict *D, char *key, char *value)
+{
+  dict_increase(D, 1);
   D->pairs[D->size - 1].key = malloc(sizeof(char) * strlen(key) + 1);
   strcpy(D->pairs[D->size - 1].key, key);
-  char *value = "Derived from Unix";
   D->pairs[D->size - 1].value = malloc(sizeof(char) * strlen(value) + 1);
   strcpy(D->pairs[D->size - 1].value, value);
+}
 
-  ++D->size;
-  D->pairs = realloc(D->pairs, sizeof(Pair) * D->size);
-  char *key2 = "Windows";
-  D->pairs[D->size - 1].key = malloc(sizeof(char) * strlen(key2) + 1);
-  strcpy(D->pairs[D->size - 1].key, key2);
-  char *value2 = "Derived from MSDOS";
-  D->pairs[D->size - 1].value = malloc(sizeof(char) * strlen(value2) + 1);
-  strcpy(D->pairs[D->size - 1].value, value2);
+void dict_print(Dict *D)
+{
+  for (int i = 0; i < D->size; ++i) {
+      printf("%s: %s\n", D->pairs[i].key, D->pairs[i].value);
+  }
+}
 
-  printf("%s: %s\n", D->pairs[0].key, D->pairs[0].value);
-  printf("%s: %s\n", D->pairs[1].key, D->pairs[1].value);
-  free(D->pairs[0].key);
-  D->pairs[0].key = NULL;
-  free(D->pairs[0].value);
-  D->pairs[0].value = NULL;
-  free(D->pairs);
-  D->pairs = NULL;
-  free(D);
+void dict_free(Dict *D)
+{
+  if (D) {
+      for (int i = 0; i < D->size; ++i) {
+          free(D->pairs[i].key);
+          D->pairs[i].key = NULL;
+          free(D->pairs[i].value);
+          D->pairs[i].value = NULL;
+      }
+      free(D->pairs);
+      D->pairs = NULL;
+      free(D);
+  }
+}
+int main() {
+  Dict *D = NULL;
+  D = dict_new();
+  dict_add(D, "FreeBSD", "Derived from Unix");
+  dict_add(D, "MacOS", "Derived from FreeBSD");
+  dict_add(D, "Windows", "Derived from MSDOS");
+  dict_add(D, "Linux", "Derived from Unix");
+  dict_print(D);
+  dict_free(D);
   D = NULL;
   return 0;
 }
