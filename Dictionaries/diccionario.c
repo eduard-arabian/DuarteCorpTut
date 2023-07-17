@@ -28,7 +28,7 @@ void dict_add(Dict *D, const char *key, const char *value)
     if (D) {
         dict_increase(D, 1);
         D->pairs[D->size - 1].key = malloc(sizeof(char) * strlen(key) + 1);
-        strncpy(D->pairs[D->size - 1].key, key);
+        strcpy(D->pairs[D->size - 1].key, key);
         D->pairs[D->size - 1].value = malloc(sizeof(char) * strlen(value) + 1);
         strcpy(D->pairs[D->size - 1].value, value);
     }
