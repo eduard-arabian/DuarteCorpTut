@@ -29,11 +29,11 @@ int main()
                 printf("%d\n", T->array[i]);
             }
         }
-        if (T) {
-            free(T);
-            T = NULL;
-        }
     }
+    if (T) {
+        free(T);
+    }
+    T = NULL;
 
     return 0;
 }
