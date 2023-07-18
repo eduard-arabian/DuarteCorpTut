@@ -17,25 +17,22 @@ int main()
             T->array[i] = i;
             printf("%d\n", T->array[i]);
         }
-    }
-
-    size = size * 2;
-    T = realloc(T, sizeof(ArrFlex) + size * sizeof(int));
-    if (T) {
-        T->len = size;
-        for (int i = T->len / 2; i < T->len; ++i) {
-            T->array[i] = i;
+        size = size * 2;
+        T = realloc(T, sizeof(ArrFlex) + size * sizeof(int));
+        if (T) {
+            T->len = size;
+            for (int i = T->len / 2; i < T->len; ++i) {
+                T->array[i] = i;
+            }
+            puts("");
+            for (int i = 0; i < T->len; ++i) {
+                printf("%d\n", T->array[i]);
+            }
         }
-
-        puts("");
-        for (int i = 0; i < T->len; ++i) {
-            printf("%d\n", T->array[i]);
+        if (T) {
+            free(T);
+            T = NULL;
         }
-    }
-
-    if (T) {
-        free(T);
-        T = NULL;
     }
 
     return 0;
