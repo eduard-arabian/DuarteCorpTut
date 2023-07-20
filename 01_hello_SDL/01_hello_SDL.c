@@ -1,8 +1,8 @@
-# https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/mingw/index.php
-# C & Windows compile
-# gcc main.c -I..\SDL2\x86_64-w64-mingw32\include -L..\SDL2\x86_64-w64-mingw32\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o jugo.exe
+// https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/mingw/index.php
+// C & Windows compile
+// gcc main.c -I..\SDL2\x86_64-w64-mingw32\include -L..\SDL2\x86_64-w64-mingw32\lib -w -Wl,-subsystem,windows -lmingw32 -lSDL2main -lSDL2 -o jugo.exe
 
-#include <SDL2/SDL.h>
+#include <../SDL2/x86_64-w64-mingw32/include/SDL2/SDL.h>
 #include <stdio.h>
 
 #ifdef __MINGW32__
