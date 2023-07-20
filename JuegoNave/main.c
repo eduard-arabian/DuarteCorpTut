@@ -20,8 +20,11 @@ int main(void)
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "OK", "SDL started", NULL);
     }
 
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    int typeEvent = 0;
+    int gameOver = 0;
+    SDL_Window *window = NULL;
+    SDL_Renderer *renderer = NULL;
+    SDL_Event event;
 
     window = SDL_CreateWindow("Ship",
                               SDL_WINDOWPOS_UNDEFINED,
@@ -31,6 +34,19 @@ int main(void)
                               SDL_WINDOW_SHOWN);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    while (!gameOver) {
+        if (SDL_PollEvent(&event)) {
+            typeEvent = event.type;
+            if (typeEvent == SDL_QUIT) {
+                gameOver = 1;
+            }
+        }
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 
     return exit_code;
 }
