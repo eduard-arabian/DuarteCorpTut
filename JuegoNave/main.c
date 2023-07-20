@@ -38,18 +38,28 @@ int main(void)
     keys = SDL_GetKeyboardState(NULL);
 
     while (!gameOver) {
+        // events
         if (SDL_PollEvent(&event)) {
             typeEvent = event.type;
             if (typeEvent == SDL_QUIT) {
                 gameOver = 1;
             } else if (typeEvent == SDL_MOUSEBUTTONDOWN) {
-                SDL_BUTTON(SDL_BUTTON_LEFT);
+                if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+                    //gameOver = 1;
+                }
             } else if (typeEvent == SDL_KEYDOWN) {
                 if (keys[SDL_SCANCODE_ESCAPE]) {
                     gameOver = 1;
+                } else if (keys[SDL_SCANCODE_LEFT]) {
+                } else if (keys[SDL_SCANCODE_RIGHT]) {
+                } else if (keys[SDL_SCANCODE_SPACE]) {
                 }
             }
         }
+        // screen
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
     }
 
     SDL_DestroyRenderer(renderer);
