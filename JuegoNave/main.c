@@ -56,7 +56,7 @@ int main(void)
     SDL_Renderer *renderer = NULL;
     SDL_Event event;
     int gameOver = 0;
-    int typeEvent = 0;
+    int typeEvent;
     const unsigned char *keys = NULL;
     Ship ship = {XSIZE / 2,
                  YSIZE / 2,
