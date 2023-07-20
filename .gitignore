@@ -108,3 +108,6 @@ compile_commands.json
 # cpplint
 cpplint.py
 CPPLINT.cfg
+
+#SDL libraries
+SDL2
