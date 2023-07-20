@@ -7,6 +7,26 @@
 
 #define XSIZE 600
 #define YSIZE 600
+#define MS 10
+
+typedef struct Ship Ship;
+typedef struct Missile Missile;
+
+struct Ship
+{
+    int x1, y1; // coordinate 1
+    int x2, y2; // coordinate 2
+    int x3, y3; // coordinate 3
+    int vx, vy; // speed
+    Missile *missiles;
+};
+
+struct Missile
+{
+    int x1, y1;
+    int x2, y2;
+    int vx, vy;
+};
 
 int main(void)
 {
@@ -52,6 +72,8 @@ int main(void)
                     gameOver = 1;
                 } else if (keys[SDL_SCANCODE_LEFT]) {
                 } else if (keys[SDL_SCANCODE_RIGHT]) {
+                } else if (keys[SDL_SCANCODE_UP]) {
+                } else if (keys[SDL_SCANCODE_DOWN]) {
                 } else if (keys[SDL_SCANCODE_SPACE]) {
                 }
             }
@@ -60,6 +82,7 @@ int main(void)
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
+        SDL_Delay(MS);
     }
 
     SDL_DestroyRenderer(renderer);
