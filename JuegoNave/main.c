@@ -8,6 +8,8 @@
 #define XSIZE 600
 #define YSIZE 600
 #define MS 10
+#define SHIP_LEN 20
+#define SHIP_VEL 5
 
 typedef struct Ship Ship;
 typedef struct Missile Missile;
@@ -28,6 +30,8 @@ struct Missile
     int vx, vy;
 };
 
+void ShipDraw(Ship *ship, SDL_Renderer *renderer);
+
 int main(void)
 {
     int exit_code = EXIT_SUCCESS;
@@ -46,6 +50,15 @@ int main(void)
     int gameOver = 0;
     int typeEvent = 0;
     const unsigned char *keys = NULL;
+    Ship ship = {XSIZE / 2,
+                 YSIZE / 2,
+                 XSIZE / 2 - SHIP_LEN,
+                 YSIZE / 2 + SHIP_LEN,
+                 XSIZE / 2 + SHIP_LEN,
+                 YSIZE / 2 + SHIP_LEN,
+                 SHIP_VEL,
+                 SHIP_VEL,
+                 NULL};
 
     window = SDL_CreateWindow("Ship",
                               SDL_WINDOWPOS_UNDEFINED,
@@ -71,9 +84,21 @@ int main(void)
                 if (keys[SDL_SCANCODE_ESCAPE]) {
                     gameOver = 1;
                 } else if (keys[SDL_SCANCODE_LEFT]) {
+                    ship.x1 -= ship.vx;
+                    ship.x2 -= ship.vx;
+                    ship.x3 -= ship.vx;
                 } else if (keys[SDL_SCANCODE_RIGHT]) {
+                    ship.x1 += ship.vx;
+                    ship.x2 += ship.vx;
+                    ship.x3 += ship.vx;
                 } else if (keys[SDL_SCANCODE_UP]) {
+                    ship.y1 -= ship.vy;
+                    ship.y2 -= ship.vy;
+                    ship.y3 -= ship.vy;
                 } else if (keys[SDL_SCANCODE_DOWN]) {
+                    ship.y1 += ship.vy;
+                    ship.y2 += ship.vy;
+                    ship.y3 += ship.vy;
                 } else if (keys[SDL_SCANCODE_SPACE]) {
                 }
             }
@@ -81,6 +106,8 @@ int main(void)
         // screen
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+        ShipDraw(&ship, renderer);
         SDL_RenderPresent(renderer);
         SDL_Delay(MS);
     }
@@ -90,4 +117,11 @@ int main(void)
     SDL_Quit();
 
     return exit_code;
+}
+
+void ShipDraw(Ship *ship, SDL_Renderer *renderer)
+{
+    SDL_Point points[4] = {{ship->x1, ship->y1}, {ship->x2, ship->y2}, {ship->x3, ship->y3}};
+    points[3] = points[0];
+    SDL_RenderDrawLines(renderer, points, 4);
 }
