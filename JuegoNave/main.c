@@ -31,6 +31,8 @@ struct Missile
 };
 
 void ShipDraw(Ship *ship, SDL_Renderer *renderer);
+void ShipGoLeftRight(Ship *ship);
+void ShipGoUpDown(Ship *ship);
 
 int main(void)
 {
@@ -84,21 +86,17 @@ int main(void)
                 if (keys[SDL_SCANCODE_ESCAPE]) {
                     gameOver = 1;
                 } else if (keys[SDL_SCANCODE_LEFT]) {
-                    ship.x1 -= ship.vx;
-                    ship.x2 -= ship.vx;
-                    ship.x3 -= ship.vx;
+                    ship.vx = -abs(ship.vx);
+                    ShipGoLeftRight(&ship);
                 } else if (keys[SDL_SCANCODE_RIGHT]) {
-                    ship.x1 += ship.vx;
-                    ship.x2 += ship.vx;
-                    ship.x3 += ship.vx;
+                    ship.vx = abs(ship.vx);
+                    ShipGoLeftRight(&ship);
                 } else if (keys[SDL_SCANCODE_UP]) {
-                    ship.y1 -= ship.vy;
-                    ship.y2 -= ship.vy;
-                    ship.y3 -= ship.vy;
+                    ship.vy = -abs(ship.vy);
+                    ShipGoUpDown(&ship);
                 } else if (keys[SDL_SCANCODE_DOWN]) {
-                    ship.y1 += ship.vy;
-                    ship.y2 += ship.vy;
-                    ship.y3 += ship.vy;
+                    ship.vy = abs(ship.vy);
+                    ShipGoUpDown(&ship);
                 } else if (keys[SDL_SCANCODE_SPACE]) {
                 }
             }
@@ -124,4 +122,18 @@ void ShipDraw(Ship *ship, SDL_Renderer *renderer)
     SDL_Point points[4] = {{ship->x1, ship->y1}, {ship->x2, ship->y2}, {ship->x3, ship->y3}};
     points[3] = points[0];
     SDL_RenderDrawLines(renderer, points, 4);
+}
+
+void ShipGoLeftRight(Ship *ship)
+{
+    ship->x1 += ship->vx;
+    ship->x2 += ship->vx;
+    ship->x3 += ship->vx;
+}
+
+void ShipGoUpDown(Ship *ship)
+{
+    ship->y1 += ship->vy;
+    ship->y2 += ship->vy;
+    ship->y3 += ship->vy;
 }
