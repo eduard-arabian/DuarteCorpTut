@@ -20,11 +20,12 @@ int main(void)
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "OK", "SDL started", NULL);
     }
 
-    int typeEvent = 0;
-    int gameOver = 0;
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
     SDL_Event event;
+    int gameOver = 0;
+    int typeEvent = 0;
+    const unsigned char *keys = NULL;
 
     window = SDL_CreateWindow("Ship",
                               SDL_WINDOWPOS_UNDEFINED,
@@ -34,12 +35,19 @@ int main(void)
                               SDL_WINDOW_SHOWN);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    keys = SDL_GetKeyboardState(NULL);
 
     while (!gameOver) {
         if (SDL_PollEvent(&event)) {
             typeEvent = event.type;
             if (typeEvent == SDL_QUIT) {
                 gameOver = 1;
+            } else if (typeEvent == SDL_MOUSEBUTTONDOWN) {
+                SDL_BUTTON(SDL_BUTTON_LEFT);
+            } else if (typeEvent == SDL_KEYDOWN) {
+                if (keys[SDL_SCANCODE_ESCAPE]) {
+                    gameOver = 1;
+                }
             }
         }
     }
