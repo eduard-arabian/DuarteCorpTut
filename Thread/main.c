@@ -18,8 +18,10 @@ int main() {
 
 void *ProcessSeparate(void *data) {
   char *text = (char *)data;
+  struct timespec tiempo = {1, 0};
 
   while (1) {
-    printf("%s\n", text);
+      printf("%s\n", text);
+      pthread_delay_np(&tiempo);
   }
 }
