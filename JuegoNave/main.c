@@ -87,16 +87,16 @@ int main(void) {
       } else if (typeEvent == SDL_KEYDOWN) {
         if (keys[SDL_SCANCODE_ESCAPE]) {
           gameOver = 1;
-        } else if (keys[SDL_SCANCODE_LEFT]) {
+        } else if (keys[SDL_SCANCODE_LEFT] && ship.x2 > 0) {
           ship.vx = -abs(ship.vx);
           ShipGoLeftRight(&ship);
-        } else if (keys[SDL_SCANCODE_RIGHT]) {
+        } else if (keys[SDL_SCANCODE_RIGHT] && ship.x3 < XSIZE) {
           ship.vx = abs(ship.vx);
           ShipGoLeftRight(&ship);
-        } else if (keys[SDL_SCANCODE_UP]) {
+        } else if (keys[SDL_SCANCODE_UP] && ship.y1 > 0) {
           ship.vy = -abs(ship.vy);
           ShipGoUpDown(&ship);
-        } else if (keys[SDL_SCANCODE_DOWN]) {
+        } else if (keys[SDL_SCANCODE_DOWN] && ship.y2 < YSIZE) {
           ship.vy = abs(ship.vy);
           ShipGoUpDown(&ship);
         } else if (keys[SDL_SCANCODE_SPACE]) {
