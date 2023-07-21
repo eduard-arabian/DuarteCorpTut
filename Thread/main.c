@@ -1,6 +1,9 @@
+#define _POSIX_C_SOURCE 199309L
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void *ProcessSeparate(void *data);
 
@@ -17,11 +20,13 @@ int main() {
 }
 
 void *ProcessSeparate(void *data) {
-  char *text = (char *)data;
-  struct timespec tiempo = {1, 0};
+  char *text = (char *) data;
+  //  struct timespec tiempo = {1, 0};
+  struct timespec rqtp = {1, 0}, rmtp = {0, 0};
 
   while (1) {
       printf("%s\n", text);
-      pthread_delay_np(&tiempo);
+      nanosleep(&rqtp, &rmtp);
+      //    pthread_delay_np(&tiempo);
   }
 }
