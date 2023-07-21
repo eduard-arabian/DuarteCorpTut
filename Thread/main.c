@@ -4,24 +4,22 @@
 
 void *ProcessSeparate(void *data);
 
-int main()
-{
-    pthread_t process1;
-    pthread_t process2;
+int main() {
+  pthread_t process1;
+  pthread_t process2;
 
-    pthread_create(&process1, NULL, &ProcessSeparate, "Hi");
-    pthread_create(&process2, NULL, &ProcessSeparate, "Bye");
-    pthread_join(process1, NULL);
-    pthread_join(process2, NULL);
+  pthread_create(&process1, NULL, &ProcessSeparate, "Hi");
+  pthread_create(&process2, NULL, &ProcessSeparate, "Bye");
+  pthread_join(process1, NULL);
+  pthread_join(process2, NULL);
 
-    return 0;
+  return 0;
 }
 
-void *ProcessSeparate(void *data)
-{
-    char *text = (char *) data;
+void *ProcessSeparate(void *data) {
+  char *text = (char *)data;
 
-    while (1) {
-        printf("%s\n", text);
-    }
+  while (1) {
+    printf("%s\n", text);
+  }
 }
