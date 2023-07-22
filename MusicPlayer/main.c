@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include <vlc/vlc.h>
 
-int main()
-{
-    printf("Hello World!\n");
-    return 0;
+int main() {
+  printf("Hello World!\n");
+  return 0;
 }
