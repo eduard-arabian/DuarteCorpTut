@@ -20,13 +20,13 @@ int main() {
 }
 
 void *ProcessSeparate(void *data) {
-  char *text = (char *) data;
+  char *text = (char *)data;
   //  struct timespec tiempo = {1, 0};
   struct timespec rqtp = {1, 0}, rmtp = {0, 0};
 
   while (1) {
-      printf("%s\n", text);
-      nanosleep(&rqtp, &rmtp);
-      //    pthread_delay_np(&tiempo);
+    printf("%s\n", text);
+    nanosleep(&rqtp, &rmtp);
+    //    pthread_delay_np(&tiempo);
   }
 }
