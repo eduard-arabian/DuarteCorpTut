@@ -44,7 +44,6 @@ void MusicPlayerFree(MusicPlayer *R)
     libvlc_release(R->instance);
     R->instance = NULL;
     free(R);
-    R = NULL;
 }
 
 void *mainMenu(void *data)
@@ -57,6 +56,7 @@ void *mainMenu(void *data)
         scanf("%c", &answer);
         if (answer == 'y') {
             MusicPlayerFree(R);
+            R = NULL;
             exit(EXIT_SUCCESS);
         }
     }
