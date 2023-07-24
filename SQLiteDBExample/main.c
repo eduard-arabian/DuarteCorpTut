@@ -46,6 +46,21 @@ void PersonaAdd(Persona **lista, const Persona *persona) {
   }
 }
 
+void PersonaListFree(Persona *lista)
+{
+  if (lista) {
+    Persona *M = NULL, *ix = lista;
+    while (ix) {
+      M = ix;
+      ix = ix->next;
+      free(M);
+      M = NULL;
+    }
+    //    free(lista);
+    lista = NULL;
+  }
+}
+
 void showLista(const Persona *lista) {
   if (lista) {
     const Persona *ix = lista;
@@ -86,6 +101,7 @@ int callback(void *ptr, int numberOfColumns, char **valueColumn, char **nameColu
   for (int i = 0; i < numberOfColumns; ++i) {
     printf("%s: %s\n", nameColumn[i], valueColumn[i]);
   }
+  printf("\n");
   return 0;
 }
 
@@ -137,6 +153,8 @@ int main(void) {
   if (db) {
     sqlite3_close(db);
   }
+
+  PersonaListFree(lista);
 
   return status;
 }
