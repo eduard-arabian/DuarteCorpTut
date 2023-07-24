@@ -12,9 +12,12 @@ typedef struct
 
 MusicPlayer *NewMusicPlayer(int argc, const char *const *argv, int song)
 {
-    const char *music[3] = {"file:///../music/1.mp3",
-                            "file:///../music/2.mp3",
-                            "file:///../music/3.mp3"};
+#ifdef __linux__
+    const char *music[3] = {"./music/1.mp3", "./music/2.mp3", "./music/3.mp3"};
+#else
+    const char *music[3] = {"file:///music/1.mp3", "file:///music/2.mp3", "file:///music/3.mp3"};
+#endif
+
     MusicPlayer *player = (MusicPlayer *) malloc(sizeof(MusicPlayer));
 
     player->instance = libvlc_new(argc, argv);
