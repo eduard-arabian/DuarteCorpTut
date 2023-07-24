@@ -62,10 +62,11 @@ void PersonaListFree(Persona *lista)
 void showLista(const Persona *lista) {
   if (lista) {
     const Persona *ix = lista;
-    while (ix->next) {
+    while (ix) {
       printf("ID: %d;Name: %s;Age: %d\n", ix->id, ix->name, ix->age);
       ix = ix->next;
     }
+    printf("\n");
   } else {
     printf("[List is empty]\n");
   }
@@ -140,7 +141,7 @@ int main(void) {
   if (file) {
     fclose(file);
     file = NULL;
-    //    showLista(lista);
+    showLista(lista);
   }
   if (!status) {
     inputDatas(lista, db);
