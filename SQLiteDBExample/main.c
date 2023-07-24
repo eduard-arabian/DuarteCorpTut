@@ -83,9 +83,8 @@ int callback(void *ptr, int numberOfColumns, char **valueColumn, char **nameColu
   //  printf("%d\n", numberOfColumns);
   //  printf("%s\n", *valueColumn);
   //  printf("%s\n\n", *nameColumn);
-  (void) nameColumn;
   for (int i = 0; i < numberOfColumns; ++i) {
-    printf("%s\n", valueColumn[i]);
+    printf("%s: %s\n", nameColumn[i], valueColumn[i]);
   }
   return 0;
 }
