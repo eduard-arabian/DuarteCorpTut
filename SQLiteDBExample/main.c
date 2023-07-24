@@ -58,6 +58,27 @@ void showLista(const Persona *lista) {
   }
 }
 
+void inputDatas(const Persona *lista, sqlite3 *db)
+{
+  if (lista) {
+    int status = EXIT_SUCCESS;
+    const Persona *ix = lista;
+    char sql[100];
+    while (ix->next && !status) {
+      sprintf(sql, "INSERT INTO persona (name, age) VALUES ('%s', %d)", ix->name, ix->age);
+      if (sqlite3_exec(db, sql, NULL, NULL, NULL) != SQLITE_OK) {
+          status = manageError(db);
+      } else {
+          ix = ix->next;
+      }
+    }
+    sprintf(sql, "INSERT INTO persona (name, age) VALUES ('%s', %d)", ix->name, ix->age);
+    sqlite3_exec(db, sql, NULL, NULL, NULL);
+  } else {
+    printf("[List is empty]\n");
+  }
+}
+
 int main(void) {
   FILE *file = NULL;
   Persona persona;
@@ -90,7 +111,14 @@ int main(void) {
   if (file) {
     fclose(file);
     file = NULL;
-    showLista(lista);
+    //    showLista(lista);
   }
+  if (!status) {
+    inputDatas(lista, db);
+  }
+  if (db) {
+    sqlite3_close(db);
+  }
+
   return status;
 }
