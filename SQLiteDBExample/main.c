@@ -56,8 +56,6 @@ void PersonaListFree(Persona *lista)
       free(M);
       M = NULL;
     }
-    //    free(lista);
-    lista = NULL;
   }
 }
 
@@ -155,6 +153,7 @@ int main(void) {
   }
 
   PersonaListFree(lista);
+  lista = NULL;
 
   return status;
 }
