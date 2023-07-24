@@ -46,8 +46,7 @@ void PersonaAdd(Persona **lista, const Persona *persona) {
   }
 }
 
-void PersonaListFree(Persona *lista)
-{
+void PersonaListFree(Persona *lista) {
   if (lista) {
     Persona *M = NULL, *ix = lista;
     while (ix) {
@@ -72,18 +71,18 @@ void showLista(const Persona *lista) {
   }
 }
 
-void inputDatas(const Persona *lista, sqlite3 *db)
-{
+void inputDatas(const Persona *lista, sqlite3 *db) {
   if (lista) {
     int status = EXIT_SUCCESS;
     const Persona *ix = lista;
     char sql[600];
     while (ix && !status) {
-      sprintf(sql, "INSERT INTO persona (name, age) VALUES ('%s', %d)", ix->name, ix->age);
+      sprintf(sql, "INSERT INTO persona (name, age) VALUES ('%s', %d)",
+              ix->name, ix->age);
       if (sqlite3_exec(db, sql, NULL, NULL, NULL) != SQLITE_OK) {
-          status = manageError(db);
+        status = manageError(db);
       } else {
-          ix = ix->next;
+        ix = ix->next;
       }
     }
   } else {
@@ -91,9 +90,9 @@ void inputDatas(const Persona *lista, sqlite3 *db)
   }
 }
 
-int callback(void *ptr, int numberOfColumns, char **valueColumn, char **nameColumn)
-{
-  (void) ptr;
+int callback(void *ptr, int numberOfColumns, char **valueColumn,
+             char **nameColumn) {
+  (void)ptr;
   //  printf("%d\n", numberOfColumns);
   //  printf("%s\n", *valueColumn);
   //  printf("%s\n\n", *nameColumn);
@@ -104,8 +103,7 @@ int callback(void *ptr, int numberOfColumns, char **valueColumn, char **nameColu
   return 0;
 }
 
-void readDataBase(sqlite3 *db)
-{
+void readDataBase(sqlite3 *db) {
   sqlite3_exec(db, "SELECT * FROM persona", callback, NULL, NULL);
 }
 
