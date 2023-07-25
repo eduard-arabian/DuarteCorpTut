@@ -68,5 +68,33 @@ int main(void) {
   printf("d = %d\n", d);
   printf("e = %d\n", e);
 
+  // task goto
+  a = 0;
+  b = 0;
+  c = 0;
+  __asm__("movl %1, %0\n"
+          : "=g"(a) // salida, %0 = a
+          : "g"(11) // entrada, %1 = 5
+          :         // clobbers
+  );
+
+  __asm__ goto("" : : : : carry);
+
+  __asm__("movl %1, %0\n"
+          : "=g"(b) // salida, %0 = a
+          : "g"(12) // entrada, %1 = 5
+          :         // clobbers
+  );
+
+carry:
+  __asm__("movl %1, %0\n"
+          : "=g"(c) // salida, %0 = a
+          : "g"(13) // entrada, %1 = 5
+          :         // clobbers
+  );
+  printf("a: %d\n", a);
+  printf("b: %d\n", b);
+  printf("c: %d\n", c);
+
   return 0;
 }
