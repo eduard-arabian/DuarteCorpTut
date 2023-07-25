@@ -4,9 +4,9 @@ int main(void) {
   int a = 0;
   // option 1
   __asm__("movl %1, %0\n"
-          : "=g"(a) // salida, %0 = a
-          : "g"(5)  // entrada, %1 = 5
-          :         // no clobbers
+          : "=g"(a)  // salida, %0 = a
+          : "g"(5)   // entrada, %1 = 5
+          :          // no clobbers
   );
   printf("a: %d\n", a);
 
@@ -54,14 +54,15 @@ int main(void) {
   c = 0;
   d = 0;
   e = 0;
-  __asm__("movl %5, %0\n"
-          "movl %6, %1\n"
-          "movl %7, %2\n"
-          "movl %8, %3\n"
-          "movl %9, %4\n"
-          : "=g"(a), "=g"(b), "=g"(c), "=g"(d), "=g"(e)
-          : "g"(1), "g"(2), "g"(3), "g"(4), "g"(5)
-          :);
+  __asm__(
+      "movl %5, %0\n"
+      "movl %6, %1\n"
+      "movl %7, %2\n"
+      "movl %8, %3\n"
+      "movl %9, %4\n"
+      : "=g"(a), "=g"(b), "=g"(c), "=g"(d), "=g"(e)
+      : "g"(1), "g"(2), "g"(3), "g"(4), "g"(5)
+      :);
   printf("a = %d\n", a);
   printf("b = %d\n", b);
   printf("c = %d\n", c);
@@ -69,33 +70,34 @@ int main(void) {
   printf("e = %d\n", e);
 
   // task goto
-  a = 0;
-  b = 0;
-  c = 0;
-  __asm__("movl %1, %0\n"
-          : "=g"(a) // salida, %0 = a
-          : "g"(11) // entrada, %1 = 5
-          :         // no clobbers
-  );
+  /*  a = 0;
+    b = 0;
+    c = 0;
+    __asm__("movl %1, %0\n"
+            : "=g"(a)  // salida, %0 = a
+            : "g"(11)  // entrada, %1 = 5
+            :          // no clobbers
+    );
 
-  //hmm... ¯\_(ツ)_/¯
-  __asm__ goto("" : : : : carry);
+    // hmm... ¯\_(ツ)_/¯
+    __asm__ goto("" : : : : carry);
 
-  __asm__("movl %1, %0\n"
-          : "=g"(b) // salida, %0 = a
-          : "g"(12) // entrada, %1 = 5
-          :         // no clobbers
-  );
+    __asm__("movl %1, %0\n"
+            : "=g"(b)  // salida, %0 = a
+            : "g"(12)  // entrada, %1 = 5
+            :          // no clobbers
+    );
 
-carry:
-  __asm__("movl %1, %0\n"
-          : "=g"(c) // salida, %0 = a
-          : "g"(13) // entrada, %1 = 5
-          :         // no clobbers
-  );
-  printf("a: %d\n", a);
-  printf("b: %d\n", b);
-  printf("c: %d\n", c);
+  carry:
+    __asm__("movl %1, %0\n"
+            : "=g"(c)  // salida, %0 = a
+            : "g"(13)  // entrada, %1 = 5
+            :          // no clobbers
+    );
+    printf("a: %d\n", a);
+    printf("b: %d\n", b);
+    printf("c: %d\n", c);
+  */
 
   // task multiplication
   a = 5;
@@ -103,12 +105,13 @@ carry:
 
   printf("a = %d\n", a);
   printf("b = %d\n", b);
-  __asm__("movl %1, %%eax\n"
-          "imul %2\n"
-          "movl %%eax, %0\n"
-          : "=g"(a)
-          : "g"(a), "g"(b)
-          :);
+  __asm__(
+      "movl %1, %%eax\n"
+      "imul %2, %%eax\n"
+      "movl %%eax, %0\n"
+      : "=g"(a)
+      : "g"(a), "g"(b)
+      :);
   printf("a x b = %d\n", a);
 
   return 0;

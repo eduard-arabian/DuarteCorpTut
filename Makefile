@@ -1,6 +1,6 @@
 .PHONY: all test rebuild clean style mem
 
-PROG=diccionario
+PROG=main
 
 CC=gcc
 CFLAGS=-std=c11 -g -Wall -Werror -Wextra
