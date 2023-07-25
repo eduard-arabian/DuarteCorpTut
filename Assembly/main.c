@@ -18,11 +18,12 @@ int main(void) {
   printf("a: %d\n", a);
 
   // option 3
-  __asm__("movl %1,%%eax\n"
-          "movl %%eax,%0\n"
-          : "=g"(a)
-          : "g"(15)
-          : "%eax");
+  __asm__(
+      "movl %1,%%eax\n"
+      "movl %%eax,%0\n"
+      : "=g"(a)
+      : "g"(15)
+      : "%eax");
   printf("a: %d\n", a);
 
   // task several variables
@@ -31,14 +32,16 @@ int main(void) {
   int c = 0;
   int d = 0;
   int e = 0;
-  __asm__("movl %[value_a], %[a]\n"
-          "movl %[value_b], %[b]\n"
-          "movl %[value_c], %[c]\n"
-          "movl %[value_d], %[d]\n"
-          "movl %[value_e], %[e]\n"
-          : [a] "=g"(a), [b] "=g"(b), [c] "=g"(c), [d] "=g"(d), [e] "=g"(e)
-          : [value_a] "g"(1), [value_b] "g"(2), [value_c] "g"(3), [value_d] "g"(4), [value_e] "g"(5)
-          :);
+  __asm__(
+      "movl %[value_a], %[a]\n"
+      "movl %[value_b], %[b]\n"
+      "movl %[value_c], %[c]\n"
+      "movl %[value_d], %[d]\n"
+      "movl %[value_e], %[e]\n"
+      : [a] "=g"(a), [b] "=g"(b), [c] "=g"(c), [d] "=g"(d), [e] "=g"(e)
+      : [value_a] "g"(1), [value_b] "g"(2), [value_c] "g"(3), [value_d] "g"(4),
+        [value_e] "g"(5)
+      :);
   printf("a = %d\n", a);
   printf("b = %d\n", b);
   printf("c = %d\n", c);
