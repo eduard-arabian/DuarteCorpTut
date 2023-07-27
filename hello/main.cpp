@@ -14,7 +14,13 @@ int main(int argc, char **argv)
 
     QObject::connect(&counter, SIGNAL(goodbye()), &app, SLOT(quit()));
 
+    //    qDebug() << app.metaObject()->className();
+    //    qDebug() << lbl.metaObject()->className();
+    //    qDebug() << cmd.metaObject()->className();
+    //    qDebug() << counter.metaObject()->className();
+
     lbl.show();
+    cmd.move(lbl.x(), lbl.y() + 50);
     cmd.show();
 
     return app.exec();
